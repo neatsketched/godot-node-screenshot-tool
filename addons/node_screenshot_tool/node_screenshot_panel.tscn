@@ -1,0 +1,334 @@
+[gd_scene load_steps=13 format=3 uid="uid://0n7vqdtlmtr1"]
+
+[ext_resource type="Script" uid="uid://bbct2hvhq0hdj" path="res://addons/node_screenshot_tool/node_screenshot_panel.gd" id="1_g74om"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdgv7"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.100134, 0.693499, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197666, 0.193745, 0.373945, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nos6t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.2795, 0.379833, 0.43, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197666, 0.193745, 0.373945, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67j0v"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(9.62615e-08, 0.561133, 0.821708, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197666, 0.193745, 0.373945, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olwbw"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.625439, 0.844604, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197666, 0.193745, 0.373945, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wh4xx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.372837, 0.553778, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197666, 0.193745, 0.373945, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyp6v"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nyp6v"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_nyp6v"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_nos6t"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="World3D" id="World3D_nyp6v"]
+
+[sub_resource type="Environment" id="Environment_nyp6v"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.33
+
+[node name="Screenshot" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g74om")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Body" type="VBoxContainer" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopRow" type="HBoxContainer" parent="MarginContainer/Body"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ResolutionButton" type="OptionButton" parent="MarginContainer/Body/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 2
+item_count = 5
+popup/item_0/text = "64x64"
+popup/item_0/id = 0
+popup/item_1/text = "128x128"
+popup/item_1/id = 1
+popup/item_2/text = "256x256"
+popup/item_2/id = 2
+popup/item_3/text = "512x512"
+popup/item_3/id = 3
+popup/item_4/text = "1024x1024"
+popup/item_4/id = 4
+
+[node name="Control" type="Control" parent="MarginContainer/Body/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScreenshotButton" type="Button" parent="MarginContainer/Body/TopRow/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -14.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 2
+render_offset_relative_to_size = false
+render_transform_pivot = Vector2(0.5, 0.5)
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(0.171236, 0.167315, 0.292697, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.185395, 0.181474, 0.336222, 1)
+theme_override_colors/font_hover_color = Color(0.204798, 0.200877, 0.395869, 1)
+theme_override_colors/font_color = Color(0.197666, 0.193745, 0.373945, 1)
+theme_override_colors/font_focus_color = Color(0.204798, 0.200877, 0.395869, 1)
+theme_override_colors/font_pressed_color = Color(0.185395, 0.181474, 0.336222, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxFlat_xdgv7")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nos6t")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_67j0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_olwbw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wh4xx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_xdgv7")
+disabled = true
+text = "Screenshot!"
+
+[node name="ViewBackground" type="Panel" parent="MarginContainer/Body"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nyp6v")
+
+[node name="ViewportTexture" type="TextureRect" parent="MarginContainer/Body/ViewBackground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = SubResource("ViewportTexture_nyp6v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Crosshair" type="Label" parent="MarginContainer/Body/ViewBackground/ViewportTexture"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.458824)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -22.5
+offset_right = 20.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_nyp6v")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="WarningLabel" type="Label" parent="MarginContainer/Body/ViewBackground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Can't take a screenshot of the editor scene!"
+label_settings = SubResource("LabelSettings_nos6t")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Sliders" type="HBoxContainer" parent="MarginContainer/Body"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HeightContainer" type="PanelContainer" parent="MarginContainer/Body/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Body/Sliders/HeightContainer"]
+layout_mode = 2
+
+[node name="Height" type="HSlider" parent="MarginContainer/Body/Sliders/HeightContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Body/Sliders/HeightContainer/VBoxContainer"]
+layout_mode = 2
+text = "Height"
+horizontal_alignment = 1
+
+[node name="YawContainer" type="PanelContainer" parent="MarginContainer/Body/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Body/Sliders/YawContainer"]
+layout_mode = 2
+
+[node name="Yaw" type="HSlider" parent="MarginContainer/Body/Sliders/YawContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 8.0
+
+[node name="Label" type="Label" parent="MarginContainer/Body/Sliders/YawContainer/VBoxContainer"]
+layout_mode = 2
+text = "Yaw"
+horizontal_alignment = 1
+
+[node name="PitchContainer" type="PanelContainer" parent="MarginContainer/Body/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Body/Sliders/PitchContainer"]
+layout_mode = 2
+
+[node name="Pitch" type="HSlider" parent="MarginContainer/Body/Sliders/PitchContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 8.0
+
+[node name="Label" type="Label" parent="MarginContainer/Body/Sliders/PitchContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pitch"
+horizontal_alignment = 1
+
+[node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+own_world_3d = true
+world_3d = SubResource("World3D_nyp6v")
+transparent_bg = true
+msaa_3d = 3
+size = Vector2i(256, 256)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_nyp6v")
+
+[node name="CamRotater" type="Node3D" parent="SubViewport"]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera3D" parent="SubViewport/CamRotater"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.20005)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/CamRotater/Camera"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.842653, 0)
+
+[node name="NodeHolder" type="Node3D" parent="SubViewport"]
+unique_name_in_owner = true
