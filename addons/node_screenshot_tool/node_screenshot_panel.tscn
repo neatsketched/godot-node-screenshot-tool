@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://0n7vqdtlmtr1"]
+[gd_scene load_steps=12 format=3 uid="uid://0n7vqdtlmtr1"]
 
 [ext_resource type="Script" path="res://addons/node_screenshot_tool/node_screenshot_panel.gd" id="1_g74om"]
 
@@ -102,9 +102,6 @@ shadow_offset = Vector2(0, 4)
 [sub_resource type="ViewportTexture" id="ViewportTexture_nyp6v"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="LabelSettings" id="LabelSettings_nyp6v"]
-font_size = 32
-
 [sub_resource type="LabelSettings" id="LabelSettings_nos6t"]
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -161,6 +158,25 @@ popup/item_3/id = 3
 popup/item_4/text = "1024x1024"
 popup/item_4/id = 4
 
+[node name="FOVLabel" type="Label" parent="MarginContainer/Body/TopRow"]
+layout_mode = 2
+text = "    FOV:"
+
+[node name="FOVButton" type="OptionButton" parent="MarginContainer/Body/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "30"
+popup/item_1/text = "40"
+popup/item_1/id = 1
+popup/item_2/text = "50"
+popup/item_2/id = 2
+popup/item_3/text = "60"
+popup/item_3/id = 3
+popup/item_4/text = "70"
+popup/item_4/id = 4
+
 [node name="Control" type="Control" parent="MarginContainer/Body/TopRow"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -213,27 +229,35 @@ texture = SubResource("ViewportTexture_nyp6v")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Crosshair" type="Label" parent="MarginContainer/Body/ViewBackground/ViewportTexture"]
+[node name="Crosshair" type="Control" parent="MarginContainer/Body/ViewBackground/ViewportTexture"]
 unique_name_in_owner = true
-visible = false
-self_modulate = Color(1, 1, 1, 0.458824)
+modulate = Color(1, 1, 1, 0.313726)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -22.5
-offset_right = 20.0
-offset_bottom = 22.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "+"
-label_settings = SubResource("LabelSettings_nyp6v")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
+
+[node name="Vertical" type="ColorRect" parent="MarginContainer/Body/ViewBackground/ViewportTexture/Crosshair"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Horizontal" type="ColorRect" parent="MarginContainer/Body/ViewBackground/ViewportTexture/Crosshair"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="WarningLabel" type="Label" parent="MarginContainer/Body/ViewBackground"]
 unique_name_in_owner = true

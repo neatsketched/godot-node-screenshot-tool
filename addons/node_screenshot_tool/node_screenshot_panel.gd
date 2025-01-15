@@ -15,13 +15,19 @@ var curr_node: Node = null:
 		update_preview_node()
 var curr_aabb: AABB
 
+var dont_touch: bool:
+	get: return self == get_tree().edited_scene_root
+
 func _ready():
-	if self == get_tree().edited_scene_root:
+	if dont_touch:
+		set_process(false)
 		return
 
 	show_warning_text("Select a node to take a screenshot")
 	%ResolutionButton.item_selected.connect(update_res)
-	update_res(2)
+	update_res(%ResolutionButton.selected)
+	%FOVButton.item_selected.connect(update_fov)
+	update_fov(%FOVButton.selected)
 	visibility_changed.connect(check_visible)
 	eds.selection_changed.connect(selection_changed)
 	%Width.value_changed.connect(width_changed)
@@ -35,12 +41,24 @@ func _ready():
 	check_visible()
 
 func update_res(idx: int) -> void:
+	if dont_touch:
+		return
+
 	var res_str: String = %ResolutionButton.get_item_text(idx)
 	var split: Array = res_str.split("x")
 	%SubViewport.size = Vector2i(int(split[0]), int(split[1]))
 
+func update_fov(idx: int) -> void:
+	if dont_touch:
+		return
+
+	var fov_str: String = %FOVButton.get_item_text(idx)
+	%Camera.fov = int(fov_str)
+
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
+		return
+	if dont_touch:
 		return
 
 	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN] and %ViewportTexture.get_global_rect().has_point(get_global_mouse_position()):
@@ -52,16 +70,16 @@ func check_visible() -> void:
 	set_process(visible)
 
 func _process(delta: float) -> void:
-	if self == get_tree().edited_scene_root:
-		show_warning_text("Can't take a screenshot of the editor scene!")
-		return
-
 	var edited_node: Node = EditorInterface.get_edited_scene_root()
 	if edited_node != curr_scene:
 		curr_scene = edited_node
+		curr_node = null
 		selection_changed()
 
 func selection_changed() -> void:
+	if dont_touch:
+		return
+
 	var selected = eds.get_selected_nodes() 
 
 	if selected.size() > 0:
@@ -74,6 +92,8 @@ func selection_changed() -> void:
 
 func update_preview_node() -> void:
 	if not is_visible_in_tree():
+		return
+	if dont_touch:
 		return
 
 	if preview_node:
@@ -96,7 +116,8 @@ func update_preview_node() -> void:
 			preview_node = preview_scene
 			%NodeHolder.add_child(preview_node)
 		else:
-			preview_node = preview_scene.get_node(get_tree().edited_scene_root.get_path_to(curr_node))
+			var node_path: NodePath = get_tree().edited_scene_root.get_path_to(curr_node)
+			preview_node = preview_scene.get_node(node_path)
 			preview_node.owner = null
 			preview_node.get_parent().remove_child(preview_node)
 			%NodeHolder.add_child(preview_node)
@@ -134,17 +155,23 @@ func _calculate_spatial_bounds(parent: Node3D, exclude_top_level_transform: bool
 func width_changed(value: float) -> void:
 	if not curr_aabb:
 		return
+	if dont_touch:
+		return
 
 	%Camera.position.x = lerpf(-curr_aabb.size.x, curr_aabb.size.x, value / %Width.max_value)
 
 func height_changed(value: float) -> void:
 	if not curr_aabb:
 		return
+	if dont_touch:
+		return
 
 	%Camera.position.y = lerpf(-curr_aabb.size.y, curr_aabb.size.y, value / %Height.max_value)
 
 func yaw_changed(value: float) -> void:
 	if not preview_node:
+		return
+	if dont_touch:
 		return
 
 	preview_node.global_rotation_degrees.y = lerpf(-180.0, 180.0, value / %Yaw.max_value)
@@ -153,6 +180,8 @@ func yaw_changed(value: float) -> void:
 
 func pitch_changed(value: float) -> void:
 	if not preview_node:
+		return
+	if dont_touch:
 		return
 
 	preview_node.global_rotation_degrees.x = lerpf(-180.0, 180.0, value / %Pitch.max_value)
