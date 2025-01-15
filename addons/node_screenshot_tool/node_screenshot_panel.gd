@@ -24,10 +24,11 @@ func _ready():
 	update_res(2)
 	visibility_changed.connect(check_visible)
 	eds.selection_changed.connect(selection_changed)
+	%Width.value_changed.connect(width_changed)
 	%Height.value_changed.connect(height_changed)
 	%Yaw.value_changed.connect(yaw_changed)
 	%Pitch.value_changed.connect(pitch_changed)
-	for slider: Slider in [%Height, %Yaw, %Pitch]:
+	for slider: Slider in [%Width, %Height, %Yaw, %Pitch]:
 		slider.value = slider.max_value / 2.0
 	%ScreenshotButton.pressed.connect(take_screenshot)
 	selection_changed()
@@ -91,7 +92,7 @@ func update_preview_node() -> void:
 		%ScreenshotButton.disabled = false
 
 		var preview_scene: Node = load(get_tree().edited_scene_root.scene_file_path).instantiate()
-		if curr_node == curr_scene:
+		if curr_node == get_tree().edited_scene_root:
 			preview_node = preview_scene
 			%NodeHolder.add_child(preview_node)
 		else:
@@ -101,12 +102,12 @@ func update_preview_node() -> void:
 			%NodeHolder.add_child(preview_node)
 			preview_scene.queue_free()
 		preview_node.global_position = Vector3.ZERO
-		curr_aabb = _calculate_spatial_bounds(preview_node, false)
+		curr_aabb = _calculate_spatial_bounds(%NodeHolder)
 		%CamRotater.global_position = curr_aabb.get_center()
-		for slider: Slider in [%Height, %Yaw, %Pitch]:
+		for slider: Slider in [%Width, %Height, %Yaw, %Pitch]:
 			slider.value = slider.max_value / 2.0
 
-func _calculate_spatial_bounds(parent: Node3D, exclude_top_level_transform: bool) -> AABB:
+func _calculate_spatial_bounds(parent: Node3D, exclude_top_level_transform: bool = true) -> AABB:
 	var bounds: AABB = AABB()
 	if parent is VisualInstance3D:
 		bounds = parent.get_aabb()
@@ -130,6 +131,12 @@ func _calculate_spatial_bounds(parent: Node3D, exclude_top_level_transform: bool
 
 	return bounds
 
+func width_changed(value: float) -> void:
+	if not curr_aabb:
+		return
+
+	%Camera.position.x = lerpf(-curr_aabb.size.x, curr_aabb.size.x, value / %Width.max_value)
+
 func height_changed(value: float) -> void:
 	if not curr_aabb:
 		return
@@ -137,10 +144,20 @@ func height_changed(value: float) -> void:
 	%Camera.position.y = lerpf(-curr_aabb.size.y, curr_aabb.size.y, value / %Height.max_value)
 
 func yaw_changed(value: float) -> void:
-	%CamRotater.global_rotation_degrees.y = lerpf(-180.0, 180.0, value / %Yaw.max_value)
+	if not preview_node:
+		return
+
+	preview_node.global_rotation_degrees.y = lerpf(-180.0, 180.0, value / %Yaw.max_value)
+	curr_aabb = _calculate_spatial_bounds(%NodeHolder)
+	%CamRotater.global_position = curr_aabb.get_center()
 
 func pitch_changed(value: float) -> void:
-	%CamRotater.global_rotation_degrees.x = lerpf(-180.0, 180.0, value / %Pitch.max_value)
+	if not preview_node:
+		return
+
+	preview_node.global_rotation_degrees.x = lerpf(-180.0, 180.0, value / %Pitch.max_value)
+	curr_aabb = _calculate_spatial_bounds(%NodeHolder)
+	%CamRotater.global_position = curr_aabb.get_center()
 
 func take_screenshot() -> void:
 	var new_file_base: String = curr_scene.scene_file_path.trim_suffix('.tscn')

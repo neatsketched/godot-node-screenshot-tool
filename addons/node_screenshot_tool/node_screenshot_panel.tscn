@@ -253,6 +253,23 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
+[node name="WidthContainer" type="PanelContainer" parent="MarginContainer/Body/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Body/Sliders/WidthContainer"]
+layout_mode = 2
+
+[node name="Width" type="HSlider" parent="MarginContainer/Body/Sliders/WidthContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Body/Sliders/WidthContainer/VBoxContainer"]
+layout_mode = 2
+text = "Width"
+horizontal_alignment = 1
+
 [node name="HeightContainer" type="PanelContainer" parent="MarginContainer/Body/Sliders"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -281,7 +298,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 8.0
+max_value = 15.0
 
 [node name="Label" type="Label" parent="MarginContainer/Body/Sliders/YawContainer/VBoxContainer"]
 layout_mode = 2
@@ -299,7 +316,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 8.0
+max_value = 15.0
 
 [node name="Label" type="Label" parent="MarginContainer/Body/Sliders/PitchContainer/VBoxContainer"]
 layout_mode = 2
