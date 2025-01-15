@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://0n7vqdtlmtr1"]
 
-[ext_resource type="Script" uid="uid://bbct2hvhq0hdj" path="res://addons/node_screenshot_tool/node_screenshot_panel.gd" id="1_g74om"]
+[ext_resource type="Script" path="res://addons/node_screenshot_tool/node_screenshot_panel.gd" id="1_g74om"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdgv7"]
 content_margin_left = 4.0
@@ -152,7 +152,6 @@ layout_mode = 2
 selected = 2
 item_count = 5
 popup/item_0/text = "64x64"
-popup/item_0/id = 0
 popup/item_1/text = "128x128"
 popup/item_1/id = 1
 popup/item_2/text = "256x256"
@@ -179,15 +178,13 @@ offset_top = -14.0
 offset_bottom = 14.0
 grow_horizontal = 0
 grow_vertical = 2
-render_offset_relative_to_size = false
-render_transform_pivot = Vector2(0.5, 0.5)
 focus_mode = 0
 theme_override_colors/font_disabled_color = Color(0.171236, 0.167315, 0.292697, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.185395, 0.181474, 0.336222, 1)
 theme_override_colors/font_hover_color = Color(0.204798, 0.200877, 0.395869, 1)
-theme_override_colors/font_color = Color(0.197666, 0.193745, 0.373945, 1)
-theme_override_colors/font_focus_color = Color(0.204798, 0.200877, 0.395869, 1)
 theme_override_colors/font_pressed_color = Color(0.185395, 0.181474, 0.336222, 1)
+theme_override_colors/font_focus_color = Color(0.204798, 0.200877, 0.395869, 1)
+theme_override_colors/font_color = Color(0.197666, 0.193745, 0.373945, 1)
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxFlat_xdgv7")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_nos6t")
