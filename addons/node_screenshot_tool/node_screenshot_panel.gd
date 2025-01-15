@@ -68,7 +68,8 @@ func selection_changed() -> void:
 		var potential_node = selected[0]
 		if not potential_node is Node3D:
 			return
-		curr_node = selected[0]
+		if curr_node != selected[0]:
+			curr_node = selected[0]
 
 func update_preview_node() -> void:
 	if not is_visible_in_tree():
@@ -90,10 +91,11 @@ func update_preview_node() -> void:
 		%ScreenshotButton.disabled = false
 
 		var preview_scene: Node = load(get_tree().edited_scene_root.scene_file_path).instantiate()
-		preview_node = preview_scene.get_node(get_tree().edited_scene_root.get_path_to(curr_node))
-		if preview_node == preview_scene:
+		if curr_node == curr_scene:
+			preview_node = preview_scene
 			%NodeHolder.add_child(preview_node)
 		else:
+			preview_node = preview_scene.get_node(get_tree().edited_scene_root.get_path_to(curr_node))
 			preview_node.owner = null
 			preview_node.get_parent().remove_child(preview_node)
 			%NodeHolder.add_child(preview_node)
